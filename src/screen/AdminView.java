@@ -10,6 +10,8 @@ public class AdminView extends JFrame{
     private JButton quảnLýHóaĐơnButton;
     private JPanel panelAdmin;
     private RoomManagerView roomManagerView = new RoomManagerView();
+    private AccountManagerView accountManagerView = new AccountManagerView();
+    private AdminView adminView = new AdminView();
 
     AdminView(){
         super("Admin");
@@ -21,6 +23,12 @@ public class AdminView extends JFrame{
             @Override
             public void actionPerformed(ActionEvent e) {
                 roomManagerView.setVisible(true);
+            }
+        });
+        quảnLýTàiKhoảnButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                accountManagerView.setVisible(true);
             }
         });
     }

@@ -15,7 +15,7 @@ public class GuestAccountBooking extends JFrame {
     private JList listBooking;
     private JButton bookButton;
     private JButton checkinButton;
-    private JButton logOutButton;
+    private JButton checkoutButton;
     private JPanel panelBooking;
     private ArrayList<Room> rooms;
     private DefaultListModel ListRoomModel;
@@ -48,6 +48,7 @@ public class GuestAccountBooking extends JFrame {
             @Override
             public void valueChanged(ListSelectionEvent e) {
                 roomNumber = listRoom.getSelectedIndex();
+                bookButton.setVisible(true);
             }
         });
         bookButton.addActionListener(new ActionListener() {

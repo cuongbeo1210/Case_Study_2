@@ -62,7 +62,7 @@ public class Screen extends JFrame {
         if (textUserName.getText().equals("") || textPassword.getText().equals("")){
             loginAlert.setText("Xin điền đầy đủ !!!");
         } else if (!CheckLogin()){
-                loginAlert.setText("Tài Khoản Không Tồn Tại !!!");
+                loginAlert.setText("Tài Khoản Hoặc Mật Khẩu Không Đúng !!!");
 
         }
     }
