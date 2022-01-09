@@ -3,61 +3,89 @@ package screen;
 import IOFile.WriteReadFile;
 import account.GuestAccount;
 
-
 import javax.swing.*;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 
 public class AccountManagerView extends JFrame{
+    private JTextField textName;
+    private JTextField textTel;
+    private JTextField textDate;
     private JList listAccount;
-    private JTextField textField1;
-    private JTextField textField2;
-    private JTextField textField3;
-    private JTextField textField4;
-    private JTextField textField5;
-    private JTextField textField6;
-    private JTextField textField7;
+    private JTextField textAddress;
+    private JTextField textEmail;
+    private JTextField textUserName;
+    private JPasswordField textPassword;
     private JButton buttonFix;
     private JButton buttonDelete;
     private JPanel panelAccount;
+    private JLabel labelAlert;
+    private ArrayList<GuestAccount> guestAccounts;
     private DefaultListModel ListAccountModel;
-    private static final WriteReadFile<GuestAccount> writeReadFile = new WriteReadFile<>();
     private static final String PATH_GUEST_ACCOUNT = "src/data_base/guestAccount";
-    private static final ArrayList<GuestAccount> guestAccounts = writeReadFile.readFile(PATH_GUEST_ACCOUNT);
-    private ArrayList<GuestAccount> guestAccounts1 ;
-
-
+    private WriteReadFile<GuestAccount> writeReadFile = new WriteReadFile<>();
+    private ArrayList<GuestAccount> guestAccounts1 = writeReadFile.readFile(PATH_GUEST_ACCOUNT);
 
     AccountManagerView(){
-        super("Account Management");
+        super("Room Management");
         this.setContentPane(this.panelAccount);
-        this.setPreferredSize(new Dimension(800, 300));
+        this.setPreferredSize(new Dimension(500, 300));
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         ListAccountModel = new DefaultListModel<>();
-        guestAccounts1 = guestAccounts;
+        guestAccounts = guestAccounts1;
         listAccount.setModel(ListAccountModel);
-        refreshGuestAccounts();
+        refreshAccount();
         listAccount.addListSelectionListener(new ListSelectionListener() {
             @Override
             public void valueChanged(ListSelectionEvent e) {
-//                checkFileGuestAccount();
+                int numberAccount = listAccount.getSelectedIndex();
+                if (numberAccount >= 0){
+                    GuestAccount guestAccount = guestAccounts.get(numberAccount);
+                    textName.setText(guestAccount.getGuest_Name());
+                    textTel.setText(guestAccount.getGuest_PhoneNumber());
+                    textDate.setText(guestAccount.getDateOfBirth().format(DateTimeFormatter.ofPattern("dd/MM/yyyy")));
+                    textAddress.setText(guestAccount.getAddress());
+                    textEmail.setText(guestAccount.getGuest_Email());
+                    textUserName.setText(guestAccount.getGuestUserName());
+                    textPassword.setText(guestAccount.getGuestPassword());
+                }
+
+            }
+        });
+        buttonFix.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int numberAccount = listAccount.getSelectedIndex();
+                if (numberAccount >= 0){
+                    GuestAccount guestAccount = guestAccounts.get(numberAccount);
+                    guestAccount.setGuestPassword(textPassword.getText());
+                    labelAlert.setText("Sửa Thành Công !!!");
+                }
+            }
+        });
+        buttonDelete.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                int numberAccount = listAccount.getSelectedIndex();
+                if (numberAccount >= 0) {
+                    guestAccounts.remove(numberAccount);
+                    refreshAccount();
+                    labelAlert.setText("Xóa Thành Công !!!");
+                    writeReadFile.writerFile(guestAccounts, PATH_GUEST_ACCOUNT);
+                }
             }
         });
     }
-    public void checkFileGuestAccount() {
-        if (writeReadFile.readFile(PATH_GUEST_ACCOUNT) == null) {
-            guestAccounts1 = new ArrayList<>();
-        } else {
-            guestAccounts1 = writeReadFile.readFile(PATH_GUEST_ACCOUNT);
-        }
-    }
-    public void refreshGuestAccounts() {
+    public void refreshAccount(){
         ListAccountModel.removeAllElements();
-        for (GuestAccount guestAccount : guestAccounts1) {
+        for(GuestAccount guestAccount : guestAccounts){
             ListAccountModel.addElement(guestAccount);
         }
     }

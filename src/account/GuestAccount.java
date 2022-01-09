@@ -41,9 +41,6 @@ public class GuestAccount extends Guest implements Serializable {
 
     @Override
     public String toString() {
-        return "GuestAccount{ "+super.toString() +
-                " guestUserName='" + guestUserName + '\'' +
-                ", guestPassword='" + guestPassword + '\'' +
-                '}';
+        return "Tài Khoản : "+getGuestUserName();
     }
 }

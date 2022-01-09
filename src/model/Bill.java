@@ -1,16 +1,19 @@
 package model;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
-public class Bill {
+public class Bill implements Serializable {
     private String guestName;
     private LocalDate timeStart;
     private LocalDate timeEnd;
+    private Long price;
 
-    public Bill(String guestName, LocalDate timeStart, LocalDate timeEnd) {
+    public Bill(String guestName, LocalDate timeStart, LocalDate timeEnd, Long price) {
         this.guestName = guestName;
         this.timeStart = timeStart;
         this.timeEnd = timeEnd;
+        this.price = price;
     }
 
     public Bill() {
@@ -40,12 +43,16 @@ public class Bill {
         this.timeEnd = timeEnd;
     }
 
+    public Long getPrice() {
+        return price;
+    }
+
+    public void setPrice(Long price) {
+        this.price = price;
+    }
+
     @Override
     public String toString() {
-        return "Bill{" +
-                "guestName='" + guestName + '\'' +
-                ", timeStart=" + timeStart +
-                ", timeEnd=" + timeEnd +
-                '}';
+        return "Bill nè ^^";
     }
 }

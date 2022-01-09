@@ -42,7 +42,7 @@ public class RoomManagerView extends JFrame {
         this.setContentPane(this.panelRoom);
         this.setPreferredSize(new Dimension(800, 300));
         this.setLocationRelativeTo(null);
-        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+//        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         this.pack();
         rooms = room1;
         roomsBooking = room2;
@@ -103,22 +103,20 @@ public class RoomManagerView extends JFrame {
                 int roomNumber = listRoom.getSelectedIndex();
                 if (roomNumber >= 0) {
                     Room room = rooms.get(roomNumber);
-                    room.setRoomID(Integer.parseInt(textName.getText()));
+//                    room.setRoomID(Integer.parseInt(textName.getText()));
                     room.setCountOfBed(Integer.parseInt(textBed.getText()));
                     room.setCountOfRestroom(Integer.parseInt(textBath.getText()));
                     room.setType(textType.getText());
                     room.setPrice(Integer.parseInt(textPrice.getText()));
                     room.setStatus(textStatus.getText());
-                    if (!checkSameName(Integer.parseInt(textName.getText()))) {
-                        labelAlert.setText("Trùng Tên Phòng");
-                    } else {
+//                    if (!checkSameName(Integer.parseInt(textName.getText()))) {
+//                        labelAlert.setText("Trùng Tên Phòng");
                         rooms.remove(roomNumber);
                         rooms.add(roomNumber, room);
                         refreshRoom();
                         labelAlert.setText("Sửa Thành Công !!!");
                         writeReadFile.writerFile(rooms, PATH_ROOMS);
                         checkFileRooms();
-                    }
                 }
             }
         });
