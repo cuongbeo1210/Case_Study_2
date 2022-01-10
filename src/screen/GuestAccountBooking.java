@@ -63,6 +63,8 @@ public class GuestAccountBooking extends JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 roomNumber = listRoom.getSelectedIndex();
                 bookButton.setVisible(true);
+                checkinButton.setVisible(false);
+                checkoutButton.setVisible(false);
             }
         });
         bookButton.addActionListener(new ActionListener() {
@@ -90,6 +92,8 @@ public class GuestAccountBooking extends JFrame {
             public void valueChanged(ListSelectionEvent e) {
                 roomNumber1 = listBooking.getSelectedIndex();
                 bookButton.setVisible(false);
+                checkinButton.setVisible(true);
+                checkoutButton.setVisible(true);
             }
         });
         checkinButton.addActionListener(new ActionListener() {
@@ -111,13 +115,13 @@ public class GuestAccountBooking extends JFrame {
                 room.setStatus("Đang Trống");
                 bill.setTimeEnd(LocalDate.now());
                 bill.setPrice(room.getPrice() * (getDaysCountBetweenDates(bill.getTimeStart(), bill.getTimeEnd()) + 1));
-                bill.setGuestName("cuongbeo");
+                bill.setGuestName("Cường Béo");
                 if (writeReadFile1.readFile(PATH_BILLS) == null) {
                     bills = new ArrayList<>();
                     bills.add(bill);
                 } else {
-                    bills.add(bill);
                     bills = writeReadFile1.readFile(PATH_BILLS);
+                    bills.add(bill);
                 }
                 writeReadFile1.writerFile(bills, PATH_BILLS);
                 rooms.add(room);

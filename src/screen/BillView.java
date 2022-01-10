@@ -10,14 +10,7 @@ import java.util.ArrayList;
 
 public class BillView extends JFrame{
     private JLabel labelPrice;
-    private JLabel textTimeIn;
-    private JLabel textTimeOut;
-    private JLabel textPrice;
     private JPanel panelBillView;
-    private JLabel labelTimeIn;
-    private JLabel labelTimeOut;
-    private JLabel labelGuestName;
-    private JLabel textGuestName;
     private static final String PATH_BILLS = "src/data_base/bills";
     private static final WriteReadFile<Bill> writeReadFile1 = new WriteReadFile<>();
     private  ArrayList<Bill> bills;
@@ -27,7 +20,7 @@ public class BillView extends JFrame{
         this.setContentPane(panelBillView);
         this.setLocationRelativeTo(null);
 //        this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        this.setPreferredSize(new Dimension(250, 500));
+        this.setPreferredSize(new Dimension(500, 250));
         this.pack();
 //            checkFileBills();
 //            if (bills.size() >= 0){
